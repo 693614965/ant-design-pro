@@ -1,6 +1,17 @@
 import router from 'umi/router';
 import { message } from 'antd';
-import { query as queryRoles, addRole, queryById, updateRole, deleteById, menuAuth, menuAuthGet, permissionAuth, permissionAuthGet } from '@/services/role';
+import {
+  addRole,
+  deleteById,
+  menuAuth,
+  menuAuthGet,
+  permissionAuth,
+  permissionAuthGet,
+  query as queryRoles,
+  queryById,
+  updateRole,
+} from '@/services/role';
+
 export default {
   namespace: 'role',
   state: {
@@ -14,14 +25,14 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
+    * fetch({ payload }, { call, put }) {
       const response = yield call(queryRoles, payload);
       yield put({
         type: 'fetchSave',
         payload: response,
       });
     },
-    *add({ payload }, { call, put }) {
+    * add({ payload }, { call, put }) {
       const response = yield call(addRole, payload);
       console.log(response);
       if (response.code === 0) {
@@ -31,14 +42,14 @@ export default {
         message.error(response.msg);
       }
     },
-    *get({ payload }, { call, put }) {
+    * get({ payload }, { call, put }) {
       const response = yield call(queryById, payload);
       yield put({
         type: 'getSave',
         payload: response,
       });
     },
-    *update({ payload }, { call, put }) {
+    * update({ payload }, { call, put }) {
       const response = yield call(updateRole, payload);
       if (response.code === 0) {
         message.success('修改成功', 2);
@@ -47,7 +58,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *delete({ payload }, { call, put }) {
+    * delete({ payload }, { call, put }) {
       const response = yield call(deleteById, payload);
       if (response.code === 0) {
         message.success('删除成功', 2);
@@ -59,7 +70,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *menuAuth({ payload }, { call, put }) {
+    * menuAuth({ payload }, { call, put }) {
       const response = yield call(menuAuth, payload);
       if (response.code === 0) {
         message.success('操作成功', 2);
@@ -71,7 +82,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *menuAuthGet({ payload }, { call, put }) {
+    * menuAuthGet({ payload }, { call, put }) {
       const response = yield call(menuAuthGet, payload);
       if (response.code === 0) {
         yield put({
@@ -82,7 +93,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *permissionAuth({ payload }, { call, put }) {
+    * permissionAuth({ payload }, { call, put }) {
       const response = yield call(permissionAuth, payload);
       if (response.code === 0) {
         message.success('操作成功', 2);
@@ -94,7 +105,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *permissionAuthGet({ payload }, { call, put }) {
+    * permissionAuthGet({ payload }, { call, put }) {
       const response = yield call(permissionAuthGet, payload);
       if (response.code === 0) {
         yield put({
@@ -111,11 +122,11 @@ export default {
       return {
         ...state,
         data: {
-          list: action.payload.data.content,
+          list: action.payload.data.records,
           pagination: {
-            total: action.payload.data.totalElements,
+            total: action.payload.data.total,
             pageSize: action.payload.data.size,
-            current: action.payload.data.number,
+            current: action.payload.data.current,
           },
         },
       };

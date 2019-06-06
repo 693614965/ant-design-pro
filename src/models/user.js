@@ -1,18 +1,19 @@
 import {
-  query as queryUsers,
-  queryCurrent,
-  addUser,
-  updateUser,
-  deleteById,
-  queryById,
-  disableUser,
   activeUser,
+  addUser,
+  deleteById,
+  disableUser,
   modifyPassword,
-  roleAuth,
+  query as queryUsers,
+  queryById,
+  queryCurrent,
   queryRolesByUserId,
+  roleAuth,
+  updateUser,
 } from '@/services/user';
 import { message } from 'antd';
 import router from 'umi/router';
+
 export default {
   namespace: 'user',
 
@@ -27,14 +28,14 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
+    * fetch({ payload }, { call, put }) {
       const response = yield call(queryUsers, payload);
       yield put({
         type: 'save',
         payload: response,
       });
     },
-    *add({ payload }, { call, put }) {
+    * add({ payload }, { call, put }) {
       const response = yield call(addUser, payload);
       console.log(response);
       if (response.code === 0) {
@@ -44,14 +45,14 @@ export default {
         message.error(response.msg);
       }
     },
-    *get({ payload }, { call, put }) {
+    * get({ payload }, { call, put }) {
       const response = yield call(queryById, payload);
       yield put({
         type: 'getSave',
         payload: response,
       });
     },
-    *update({ payload }, { call, put }) {
+    * update({ payload }, { call, put }) {
       const response = yield call(updateUser, payload);
       if (response.code === 0) {
         message.success('修改成功', 2);
@@ -60,7 +61,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *delete({ payload }, { call, put }) {
+    * delete({ payload }, { call, put }) {
       const response = yield call(deleteById, payload);
       if (response.code === 0) {
         message.success('删除成功', 2);
@@ -72,7 +73,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *disable({ payload }, { call, put }) {
+    * disable({ payload }, { call, put }) {
       const response = yield call(disableUser, payload);
       if (response.code === 0) {
         message.success('操作成功', 2);
@@ -84,7 +85,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *active({ payload }, { call, put }) {
+    * active({ payload }, { call, put }) {
       const response = yield call(activeUser, payload);
       if (response.code === 0) {
         message.success('操作成功', 2);
@@ -96,7 +97,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *modifyPassword({ payload }, { call, put }) {
+    * modifyPassword({ payload }, { call, put }) {
       const response = yield call(modifyPassword, payload);
       if (response.code === 0) {
         message.success('操作成功', 2);
@@ -108,7 +109,7 @@ export default {
         message.error(response.msg);
       }
     },
-    *roleAuth({ payload }, { call, put }) {
+    * roleAuth({ payload }, { call, put }) {
       const response = yield call(roleAuth, payload);
       if (response.code === 0) {
         message.success('操作成功', 2);
@@ -117,14 +118,14 @@ export default {
         message.error(response.msg);
       }
     },
-    *getRoles({ payload }, { call, put }) {
+    * getRoles({ payload }, { call, put }) {
       const response = yield call(queryRolesByUserId, payload);
       yield put({
         type: 'getRolesSave',
         payload: response,
       });
     },
-    *fetchCurrent(_, { call, put }) {
+    * fetchCurrent(_, { call, put }) {
       const response = yield call(queryCurrent);
       yield put({
         type: 'saveCurrentUser',
@@ -138,11 +139,11 @@ export default {
       return {
         ...state,
         data: {
-          list: action.payload.data.content,
+          list: action.payload.data.records,
           pagination: {
-            total: action.payload.data.totalElements,
+            total: action.payload.data.total,
             pageSize: action.payload.data.size,
-            current: action.payload.data.number,
+            current: action.payload.data.current,
           },
         },
       };

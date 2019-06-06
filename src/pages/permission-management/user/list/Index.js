@@ -1,35 +1,30 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import router from 'umi/router';
 import { connect } from 'dva';
 import {
-  List,
-  Card,
-  Row,
-  Col,
-  Radio,
-  Input,
-  InputNumber,
-  Progress,
-  Button,
-  Icon,
-  Dropdown,
-  Menu,
-  Avatar,
-  Modal,
-  Form,
-  message,
-  DatePicker,
-  Select,
   Badge,
-  Popconfirm,
+  Button,
+  Card,
+  Col,
+  DatePicker,
   Divider,
+  Form,
+  Icon,
+  Input,
+  message,
+  Modal,
+  Popconfirm,
+  Row,
+  Select,
 } from 'antd';
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import RenderAuthorized from '@/components/Authorized';
 import { getAuthority } from '@/utils/authority';
 import styles from '../../../List/TableList.less';
+
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+
 const Authorized = RenderAuthorized(getAuthority());
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -81,12 +76,12 @@ const CreateForm = Form.create()(props => {
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="密码">
         {form.getFieldDecorator('password', {
           rules: [{ required: true, message: '请输入密码' }, { validator: validateToNextPassword }],
-        })(<Input.Password size="large" placeholder="请输入" />)}
+        })(<Input.Password size="large" placeholder="请输入"/>)}
       </FormItem>
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="确认密码">
         {form.getFieldDecorator('confirm', {
           rules: [{ required: true, message: '请输入确认密码' }, { validator: compareToFirstPassword }],
-        })(<Input.Password size="large" onBlur={confirmBlur} placeholder="请输入" />)}
+        })(<Input.Password size="large" onBlur={confirmBlur} placeholder="请输入"/>)}
       </FormItem>
     </Modal>
   );
@@ -139,7 +134,7 @@ class UserList extends PureComponent {
       type: 'user/modifyPassword',
       payload: rows,
     });
-    this.handleModalVisible()
+    this.handleModalVisible();
   };
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
@@ -201,7 +196,7 @@ class UserList extends PureComponent {
       title: '角色',
       render: (text, record) => (
         <span>
-          {record.roles.map(role => role.roleName)}
+          {record.roles && record.roles.length != 0 && record.roles.map(role => role.roleName)}&nbsp;
         </span>
       ),
     },
@@ -219,7 +214,7 @@ class UserList extends PureComponent {
         },
       ],
       render(val) {
-        return <Badge status={statusMap[val]} text={status[val]} />;
+        return <Badge status={statusMap[val]} text={status[val]}/>;
       },
     },
     {
@@ -241,7 +236,7 @@ class UserList extends PureComponent {
         <Fragment>
           <Authorized authority={['super_admin', 'user_edit']}>
             <a onClick={() => this.handleEdit(record)}>编辑</a>
-            <Divider type="vertical" />
+            <Divider type="vertical"/>
           </Authorized>
           <Authorized authority={['super_admin', 'user_delete']}>
             <Popconfirm
@@ -399,17 +394,17 @@ class UserList extends PureComponent {
         <Row gutter={{ md: 6, lg: 24, xl: 48 }}>
           <Col md={6} sm={24}>
             <FormItem label="账号">
-              {getFieldDecorator('userName')(<Input placeholder="请输入" size="large" />)}
+              {getFieldDecorator('userName')(<Input placeholder="请输入" size="large"/>)}
             </FormItem>
           </Col>
           <Col md={6} sm={24}>
             <FormItem label="邮箱">
-              {getFieldDecorator('email')(<Input placeholder="请输入" size="large" />)}
+              {getFieldDecorator('email')(<Input placeholder="请输入" size="large"/>)}
             </FormItem>
           </Col>
           <Col md={6} sm={24}>
             <FormItem label="手机">
-              {getFieldDecorator('mobile')(<Input placeholder="请输入" size="large" />)}
+              {getFieldDecorator('mobile')(<Input placeholder="请输入" size="large"/>)}
             </FormItem>
           </Col>
           <Col md={6} sm={24}>
@@ -427,7 +422,7 @@ class UserList extends PureComponent {
                 重置
               </Button>
               <a icon="down" style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                高级查询 <Icon type="down" />
+                高级查询 <Icon type="down"/>
               </a>
             </span>
           </Col>
@@ -445,17 +440,17 @@ class UserList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="账号">
-              {getFieldDecorator('userName')(<Input placeholder="请输入" size="large" />)}
+              {getFieldDecorator('userName')(<Input placeholder="请输入" size="large"/>)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <FormItem label="邮箱">
-              {getFieldDecorator('email')(<Input placeholder="请输入" size="large" />)}
+              {getFieldDecorator('email')(<Input placeholder="请输入" size="large"/>)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <FormItem label="手机">
-              {getFieldDecorator('mobile')(<Input placeholder="请输入" size="large" />)}
+              {getFieldDecorator('mobile')(<Input placeholder="请输入" size="large"/>)}
             </FormItem>
           </Col>
         </Row>
@@ -466,7 +461,7 @@ class UserList extends PureComponent {
                 <Select placeholder="请选择" style={{ width: '100%' }} size="large">
                   <Option value="0">否</Option>
                   <Option value="1">是</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
           </Col>
@@ -476,7 +471,7 @@ class UserList extends PureComponent {
                 <Select placeholder="请选择" style={{ width: '100%' }} size="large">
                   <Option value="0">正常</Option>
                   <Option value="1">禁用</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
           </Col>
@@ -495,7 +490,7 @@ class UserList extends PureComponent {
                 重置
               </Button>
               <a icon="down" style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                收起 <Icon type="up" />
+                收起 <Icon type="up"/>
               </a>
             </span>
           </Col>
@@ -578,7 +573,7 @@ class UserList extends PureComponent {
             />
           </div>
         </Card>
-        <CreateForm {...parentMethods} modalVisible={modalVisible} confirmDirty={confirmDirty} />
+        <CreateForm {...parentMethods} modalVisible={modalVisible} confirmDirty={confirmDirty}/>
       </PageHeaderWrapper>
     );
   };

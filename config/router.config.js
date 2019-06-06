@@ -23,7 +23,11 @@ export default [
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
     routes: [
-      { path: '/', redirect: '/system-management/user/list' },
+      {
+        path: '/',
+        redirect: '/permission-management/user/list',
+        authority: ['user'],
+      },
       {
         path: 'basic-management',
         name: 'basic-management',
@@ -69,7 +73,7 @@ export default [
             name: 'employee-edit',
             component: './basic-management/employee/edit/Index',
           },
-        ]
+        ],
       },
       {
         path: 'permission-management',
@@ -131,7 +135,7 @@ export default [
             component: './permission-management/role/permissAuth/Index',
           },
 
-        ]
+        ],
       },
       {
         path: 'system-management',
