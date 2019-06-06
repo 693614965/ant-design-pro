@@ -3,10 +3,20 @@ export default [
   {
     path: '/user',
     component: '../layouts/UserLayout',
-    routes: [
-      { path: '/user', redirect: '/user/login' },
-      { path: '/user/login', name: 'login', component: './User/Login' },
-      { path: '/user/register', name: 'register', component: './User/Register' },
+    routes: [{
+        path: '/user',
+        redirect: '/user/login'
+      },
+      {
+        path: '/user/login',
+        name: 'login',
+        component: './User/Login'
+      },
+      {
+        path: '/user/register',
+        name: 'register',
+        component: './User/Register'
+      },
       {
         path: '/user/register-result',
         name: 'register.result',
@@ -22,8 +32,7 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
-    routes: [
-      {
+    routes: [{
         path: '/',
         redirect: '/permission-management/user/list',
         authority: ['user'],
@@ -32,8 +41,7 @@ export default [
         path: 'basic-management',
         name: 'basic-management',
         icon: 'table',
-        routes: [
-          {
+        routes: [{
             // authority:['depart_list'],
             path: '/basic-management/depart/list',
             name: 'depart-list',
@@ -79,8 +87,7 @@ export default [
         path: 'permission-management',
         name: 'permission-management',
         icon: 'table',
-        routes: [
-          {
+        routes: [{
             authority: ['super_admin', 'user_page'],
             path: '/permission-management/user/list',
             name: 'user-list',
@@ -141,8 +148,7 @@ export default [
         path: 'system-management',
         name: 'system-management',
         icon: 'table',
-        routes: [
-          {
+        routes: [{
             // authority:['menu_list'],
             path: '/system-management/menu/list',
             name: 'menu-list',
@@ -168,8 +174,7 @@ export default [
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
-        routes: [
-          {
+        routes: [{
             path: '/dashboard/analysis',
             name: 'analysis',
             component: './Dashboard/Analysis',
@@ -192,8 +197,7 @@ export default [
         path: '/form',
         icon: 'form',
         name: 'form',
-        routes: [
-          {
+        routes: [{
             path: '/form/basic-form',
             name: 'basicform',
             component: './Forms/BasicForm',
@@ -203,8 +207,7 @@ export default [
             name: 'stepform',
             component: './Forms/StepForm',
             hideChildrenInMenu: true,
-            routes: [
-              {
+            routes: [{
                 path: '/form/step-form',
                 redirect: '/form/step-form/info',
               },
@@ -239,8 +242,7 @@ export default [
         path: '/list',
         icon: 'table',
         name: 'list',
-        routes: [
-          {
+        routes: [{
             path: '/list/table-list',
             name: 'searchtable',
             component: './List/TableList',
@@ -259,8 +261,7 @@ export default [
             path: '/list/search',
             name: 'searchlist',
             component: './List/List',
-            routes: [
-              {
+            routes: [{
                 path: '/list/search',
                 redirect: '/list/search/articles',
               },
@@ -322,7 +323,11 @@ export default [
             name: 'success',
             component: './Result/Success',
           },
-          { path: '/result/fail', name: 'fail', component: './Result/Error' },
+          {
+            path: '/result/fail',
+            name: 'fail',
+            component: './Result/Error'
+          },
         ],
       },
       // exception
@@ -362,13 +367,11 @@ export default [
         name: 'account',
         icon: 'user',
         path: '/account',
-        routes: [
-          {
+        routes: [{
             path: '/account/center',
             name: 'center',
             component: './Account/Center/Center',
-            routes: [
-              {
+            routes: [{
                 path: '/account/center',
                 redirect: '/account/center/articles',
               },
@@ -390,8 +393,7 @@ export default [
             path: '/account/settings',
             name: 'settings',
             component: './Account/Settings/Info',
-            routes: [
-              {
+            routes: [{
                 path: '/account/settings',
                 redirect: '/account/settings/base',
               },
@@ -421,8 +423,7 @@ export default [
         name: 'editor',
         icon: 'highlight',
         path: '/editor',
-        routes: [
-          {
+        routes: [{
             path: '/editor/flow',
             name: 'flow',
             component: './Editor/GGEditor/Flow',
