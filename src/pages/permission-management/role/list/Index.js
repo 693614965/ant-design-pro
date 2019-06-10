@@ -60,7 +60,7 @@ class RoleList extends PureComponent {
     }, {});
 
     const params = {
-      currentPage: pagination.current,
+      page: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
       ...filters,
@@ -85,6 +85,15 @@ class RoleList extends PureComponent {
     router.push('/permission-management/role/add');
   };
 
+  handlePermissionConfig = () => {
+    const { selectedRows } = this.state;
+    if (selectedRows.length === 1) {
+      router.push('/permission-management/role/permissAuth/' + selectedRows[0].id);
+    } else {
+      message.error('请选择一个角色进行权限配置!');
+    }
+  };
+
   handleEdit = record => {
     router.push('/permission-management/role/edit/' + record.id);
   };
@@ -97,22 +106,6 @@ class RoleList extends PureComponent {
     });
   };
 
-  handleMenuClick = e => {
-    console.log(e);
-    const { selectedRows } = this.state;
-    if (selectedRows.length === 0) return;
-    switch (e.key) {
-      case 'permissAuth':
-        if (selectedRows.length === 1) {
-          router.push('/permission-management/role/permissAuth/' + selectedRows[0].id);
-        } else {
-          message.error('请选择一个角色进行授权!');
-        }
-        break;
-      default:
-        break;
-    }
-  };
   columns = [
     {
       title: '角色名称',
@@ -159,11 +152,7 @@ class RoleList extends PureComponent {
       loading,
     } = this.props;
     const { selectedRows } = this.state;
-    const menu = (
-      <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
-        <Menu.Item key="permissAuth">权限配置</Menu.Item>
-      </Menu>
-    );
+
     return (
       <PageHeaderWrapper>
         <Card bordered={false}>
@@ -173,15 +162,9 @@ class RoleList extends PureComponent {
               <Button icon="plus" type="primary" size="large" onClick={() => this.handleAdd()}>
                 新增
               </Button>
-              {selectedRows.length > 0 && (
-                <span>
-                  <Dropdown overlay={menu}>
-                    <Button icon="more" type="primary" size="large">
-                      更多操作 <Icon type="down" />
-                    </Button>
-                  </Dropdown>
-                </span>
-              )}
+              <Button type="primary" size="large" onClick={() => this.handlePermissionConfig()}>
+                权限配置
+              </Button>
             </div>
             <StandardTable
               bordered

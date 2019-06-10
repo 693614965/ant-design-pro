@@ -48,9 +48,8 @@ export async function activeUser(params) {
 }
 
 export async function modifyPassword(params) {
-  return request('/api/v1/user/modifyPassword', {
+  return request(`/api/v1/user/modifyPassword?${stringify(params)}`, {
     method: 'POST',
-    data: params,
   });
 }
 
@@ -62,7 +61,7 @@ export async function roleAuth(params) {
 }
 
 export async function queryRolesByUserId(params) {
-  return request('/api/v1/user/roleAuth/get/'+params);
+  return request('/api/v1/user/roleAuth/get/' + params);
 }
 
 export async function queryCurrent() {

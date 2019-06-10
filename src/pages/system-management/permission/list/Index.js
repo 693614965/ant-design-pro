@@ -147,7 +147,7 @@ class PermissionList extends PureComponent {
         }, {});
 
         const params = {
-            page: pagination.current - 1,
+            page: pagination.current,
             pageSize: pagination.pageSize,
             ...formValues,
             ...filters,
